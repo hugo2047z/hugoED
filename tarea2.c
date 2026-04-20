@@ -73,7 +73,7 @@ int main(){
                 imprimir(punto, tam);
                 break;
             case 3:
-                printf("\nsaliend...\n");
+                printf("\nsaliendo...\n");
                 break;
             default:
                 printf("\nopcion no valida\n");
