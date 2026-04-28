@@ -38,6 +38,7 @@ int main(){
     struct Dato *Ptr=NULL;
     struct Dato *Ptrtemp=NULL;
     struct Dato *Ptraux=NULL;
+
     do {
         a = menu();
         switch (a) {
@@ -48,34 +49,60 @@ int main(){
                 }
                 else if (Ptr == NULL){
                         Ptr=Ptrtemp;
+                        printf("se reservó 1");
                 }
                 else{
                     Ptraux=Ptr;
                     while(Ptraux -> Ptrsig != NULL){
                         Ptraux = Ptraux -> Ptrsig;
-                        Ptraux -> Ptrsig = Ptrtemp; 
+                        //Ptraux -> Ptrsig = Ptrtemp; 
                     }
+                    Ptraux -> Ptrsig = Ptrtemp; //nuevo
+                    printf("reservado");
                 }
                 break;
 
             case 2:
-                
+                if(Ptr == NULL){
+                    printf("no hay nada por mostar");
+                }else{
+                    Ptraux=Ptr;
+                    while(Ptraux != NULL){
+                        printf("%d -> ", Ptraux -> d);
+                        Ptraux = Ptraux-> Ptrsig;
+                    }
+                    printf("nulo");
+                }
                 break;
 
             case 3:
 
                 if(Ptr == NULL){
                     printf("no hay nada por liberar");
-                }else if(Ptrtemp -> Ptrsig == NULL){
-                    free(Ptrtemp);
+                }else if(Ptr -> Ptrsig == NULL){
+                    free(Ptr);
                     Ptr=NULL;  
+                    printf("se libero todo");
                 }else{
+                    Ptraux=Ptr;
+                    while((Ptraux -> Ptrsig) -> Ptrsig != NULL){
+                        Ptraux = Ptraux -> Ptrsig;
 
+                    }
+                    free(Ptraux -> Ptrsig);
+                    Ptraux -> Ptrsig =NULL;
+                    printf("se libero 1");
                 }
                 break;
 
             case 4:
                 printf("\nSaliendo del programa...\n");
+                    while(Ptr != NULL){
+                        Ptraux = Ptr;
+                        Ptr = Ptraux ->  Ptrsig;
+                        free(Ptraux);
+                        printf("#");
+                    }
                 break;
 
             default:
@@ -87,9 +114,3 @@ int main(){
 
     return 0;
 }
-
-//1.la funcion crea el nuevo mudulo y retorna la direccion de memoria, desventaja: cada que vuelve a hacerse el programa se sobreescribe ptr 
-//2.mandar la direccion de la variable ptr e implementa doble apuntador para modificar ptr desde la funcion
-
-//liberar el nodo
-//tengo que eliminar al ultimo pero tengo que hacer que el penultimo apunte a nulo. a quien tengo qu buscar es al penultimo
