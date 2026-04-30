@@ -11,9 +11,19 @@ int menu() {
     printf("\n     MENU \n");
     printf("Seleccione una opcion: \n");
     printf("1 para crear dato\n");
-    printf("2 para mostrar\n");
-    printf("3 para liberar\n");
-    printf("4 para salir\n");
+    printf("2 para abrir el sub menu");
+    printf("3 para mostrar\n");
+    printf("4 para liberar\n");
+    printf("5 para salir\n");
+    scanf("%d", &a);
+    return a;
+}
+
+
+int submenu() {
+    int a;
+    printf("\n     MENU \n");
+    printf("Seleccione una opcion: \n");
     scanf("%d", &a);
     return a;
 }
@@ -61,8 +71,32 @@ int main(){
                     printf("reservado");
                 }
                 break;
-
+            
             case 2:
+                int sub;
+                do{
+                    sub = submenu();
+                    switch (sub) {
+                    case 1:
+                        
+                        break;
+
+                    case 2:
+                        
+                        break;
+
+                    case 3:
+                        
+                        break;
+
+                    default:
+                        printf("opcion invalida en submenu\n");
+                    }
+                    
+                } while ( sub !=3 );
+                break;
+            
+            case 3:
                 if(Ptr == NULL){
                     printf("no hay nada por mostar");
                 }else{
@@ -75,7 +109,7 @@ int main(){
                 }
                 break;
 
-            case 3:
+            case 4:
 
                 if(Ptr == NULL){
                     printf("no hay nada por liberar");
@@ -95,7 +129,7 @@ int main(){
                 }
                 break;
 
-            case 4:
+            case 5:
                 printf("\nSaliendo del programa...\n");
                     while(Ptr != NULL){
                         Ptraux = Ptr;
@@ -110,7 +144,7 @@ int main(){
                 break;
         }
 
-    } while (a != 4);
+    } while (a != 5);
 
     return 0;
 }
