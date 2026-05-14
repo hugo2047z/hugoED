@@ -9,7 +9,6 @@ struct Dato{
 
 int menu(){
     int a;
-
     printf(" MENU \n");
     printf("[1] insertar elemento\n");
     printf("[2] eliminar elemento\n");
@@ -17,7 +16,6 @@ int menu(){
     printf("[4] salir\n");
     printf("seleccione una opcion: ");
     scanf("%d", &a);
-
     return a;
 }
 
