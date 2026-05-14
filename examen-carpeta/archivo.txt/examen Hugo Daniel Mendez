@@ -1,0 +1,161 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Dato{
+    int d;
+    struct Dato *ant;
+    struct Dato *sig;
+};
+
+int menu(){
+    int a;
+
+    printf(" MENU \n");
+    printf("[1] insertar elemento\n");
+    printf("[2] eliminar elemento\n");
+    printf("[3] mostrar lista\n");
+    printf("[4] salir\n");
+    printf("seleccione una opcion: ");
+    scanf("%d", &a);
+
+    return a;
+}
+
+struct Dato *nuevoDato(void){
+
+    struct Dato *Ptrtemp;
+    int dato;
+
+    Ptrtemp = (struct Dato*)malloc(sizeof(struct Dato));
+
+    if(Ptrtemp == NULL){
+        return NULL;
+    }
+
+    printf("ingrese un daot: ");
+    scanf("%d", &dato);
+
+    Ptrtemp->d = dato;
+    Ptrtemp->sig = Ptrtemp;
+    Ptrtemp->ant = Ptrtemp;
+
+    return Ptrtemp;
+}
+
+int main(){
+
+    struct Dato *Ptr = NULL;
+    struct Dato *Ptraux = NULL;
+    struct Dato *nuevo = NULL;
+
+    int a;
+    int buscar;
+    int encontrado;
+
+    do{
+
+        a = menu();
+        switch(a){
+            case 1:
+                nuevo = nuevoDato();
+                if(nuevo == NULL){
+                    printf("no se reservo memoria");
+                }
+                else if(Ptr == NULL){
+                    Ptr = nuevo;
+                    printf("se creo un nodo");
+                }
+                else{
+                    Ptraux = Ptr->ant;
+                    Ptraux->sig = nuevo;
+                    nuevo->ant = Ptraux;
+                    nuevo->sig = Ptr;
+                    Ptr->ant = nuevo;
+                    printf("se inserto un nuevo nod ");
+                }
+
+                break;
+            case 2:
+                if(Ptr == NULL){
+                    printf("no hay nada que eliminar ");
+                }
+                else if(Ptr->sig == Ptr){
+                    free(Ptr);
+                    Ptr = NULL;
+                    printf("se eliminaron todos los nodos ");
+                }else{
+                    Ptraux = Ptr->ant;
+                    Ptraux->ant->sig = Ptr;
+                    Ptr->ant = Ptraux->ant;
+                    free(Ptraux);
+                    printf("se elimino un nodo"); //ultimo
+                }
+                break;
+
+            case 3:
+
+                if(Ptr == NULL){
+
+                    printf("La lista esta vacia\n");
+                }
+
+                else{
+
+                    Ptraux = Ptr;
+
+                    printf("\nLista:\n");
+
+                    do{
+
+                        printf("%d <-> ", Ptraux->d);
+
+                        Ptraux = Ptraux->sig;
+
+                    }while(Ptraux != Ptr);
+
+                    printf("(inicio)\n");
+                }
+
+                break;
+            case 3:
+                if(Ptr == NULL){
+                    printf("no hay nada para mostrar");
+                }
+                else{
+                    Ptraux = Ptr;
+                    printf("lista:\n");
+                    do{
+                        printf("%d <-> ", Ptraux->d);
+                        Ptraux = Ptraux->sig;
+                    }while(Ptraux != Ptr);
+                }
+                break;
+            case 4:
+                if(Ptr != NULL){
+                    Ptraux = Ptr->sig;
+                    while(Ptraux != Ptr){
+                        free(Ptr);
+                        Ptr = Ptraux;
+                        Ptraux = Ptraux->sig;
+                    }
+
+                    free(Ptr);
+
+                    Ptr = NULL;
+                }
+
+                printf("saliendo ");
+
+                break;
+
+            default:
+
+                printf("ingrese un opcion valida");
+
+                break;
+        }
+
+    }while(a != 4);
+    return 0;
+}
+//hugo daniel mendez 
